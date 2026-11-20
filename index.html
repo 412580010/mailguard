@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MailGuard 以可解釋的規則分析可疑郵件，協助您檢查寄件者、網址與社交工程訊號。" />
+  <title>MailGuard V4｜郵件威脅分析與測試評估</title>
+  <style>
+
+:root{--ink:#152c35;--navy:#102a35;--muted:#6b7b83;--teal:#087b75;--teal-dark:#006964;--line:#e5ebec;--bg:#f6f9f9;--white:#fff;--shadow:0 16px 50px rgba(12,40,47,.05)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:'DM Sans','Noto Sans TC',system-ui,sans-serif;font-size:15px;line-height:1.7}button,input,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.shell{width:min(1140px,calc(100% - 56px));margin-inline:auto}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #7ac8bd;outline-offset:3px}.skip-link{position:absolute;top:-60px;left:10px;padding:8px;background:white;z-index:10}.skip-link:focus{top:10px}.topbar{height:80px;border-bottom:1px solid #edf1f2;background:#fff}.topbar-inner{height:100%;display:flex;align-items:center;gap:36px}.brand{display:flex;gap:11px;align-items:center;font-size:21px;font-weight:800;letter-spacing:-.8px}.brand-mark{background:#087b75;border-radius:11px;color:white;width:36px;height:36px;display:grid;place-items:center;font-size:23px}.brand-dot{color:#0c9e91}.topnav{display:flex;gap:34px;margin-left:45px;height:100%;align-items:center;font-size:13px;font-weight:600;color:#647780}.topnav a{height:100%;display:flex;align-items:center;border-bottom:2px solid transparent}.topnav .nav-active,.topnav a:hover{color:#067c75;border-color:#0b9387}.privacy-pill{margin-left:auto;background:#f0f9f6;color:#34786c;border:1px solid #d7ebe3;border-radius:100px;padding:6px 12px;font-size:11px;font-weight:700;white-space:nowrap}.privacy-dot{display:inline-block;height:6px;width:6px;border-radius:50%;background:#19a77f;margin-right:5px;vertical-align:2px}.hero{min-height:393px;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:55px;padding-block:48px 44px}.eyebrow,.section-kicker,.guide-eyebrow{font-size:11px;letter-spacing:1.8px;font-weight:800;color:#08867c}.eyebrow{display:flex;align-items:center;gap:9px}.eyebrow-line{height:2px;width:18px;background:#1bb2a7}.hero h1{font-size:clamp(35px,3.45vw,49px);line-height:1.34;letter-spacing:-1.7px;margin:15px 0 17px;font-weight:800}.hero h1 span{color:var(--teal)}.hero-lead{color:#677a82;max-width:595px;font-size:15px;line-height:1.95;margin-bottom:21px}.hero-link{font-weight:800;color:#087b75;border-bottom:1.5px solid #087b75;padding-bottom:4px;font-size:14px}.hero-link span{margin-left:7px}.hero-visual{position:relative;min-height:292px;display:grid;place-items:center;isolation:isolate}.visual-glow{position:absolute;width:320px;height:260px;background:radial-gradient(ellipse,#d4ece6 0%,#edf7f2 42%,transparent 71%);z-index:-2}.orbit{position:absolute;z-index:-1;border:1px solid #d7e9e6;border-radius:50%}.orbit-one{width:360px;height:260px;transform:rotate(-19deg)}.orbit-two{width:260px;height:345px;transform:rotate(29deg)}.float-card{width:310px;box-shadow:0 26px 58px #20545b26;background:#fff;padding:22px 23px 18px;border-radius:13px;border:1px solid #e3edeb;transform:rotate(-5deg)}.float-card-top{display:flex;align-items:center;gap:9px;margin-bottom:22px}.mini-icon{background:#e2f1ef;color:#087b75;display:grid;place-items:center;width:30px;height:30px;border-radius:9px}.tiny-label{font-size:10px;font-weight:800;color:#6e8188;letter-spacing:1px}.tiny-dots{margin-left:auto;color:#a4b8bc;letter-spacing:2px}.fake-line{height:8px;border-radius:10px;background:#e5eeef;margin-bottom:12px}.width75{width:75%}.width55{width:55%}.width85{width:85%}.width40{width:40%}.float-divider{border-top:1px solid #e8eeee;margin:20px 0 15px}.visual-status{display:flex;align-items:center;gap:10px}.visual-warning{font-weight:800;font-size:15px;color:#af7a1e;background:#fff5e0;display:grid;place-items:center;height:30px;width:30px;border-radius:50%}.visual-status strong{display:block;font-size:11px;line-height:1.5}.visual-status small{display:block;color:#9baaae;font-size:10px}.visual-arrow{margin-left:auto;color:#6d9e94}.analysis-section{background:var(--bg);padding:64px 0 86px;border-block:1px solid #edf2f2;scroll-margin-top:15px}.section-heading{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:27px}.section-heading h2,.results-head h2,.how-section h2,.about-section h2{font-size:30px;letter-spacing:-.9px;line-height:1.35;margin:9px 0 8px}.section-heading p,.results-head p{margin:0;color:#74868b;font-size:13px}.step-pill{background:white;border:1px solid #e1e9e9;border-radius:100px;padding:8px 15px;font-size:11px;color:#72848a;white-space:nowrap}.workspace{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(275px,.85fr);gap:22px;align-items:start}.form-panel,.guide-panel{background:white;border:1px solid #e4ebeb;border-radius:15px;box-shadow:var(--shadow)}.form-panel{padding:32px}.panel-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:25px}.panel-title h3,.guide-panel h3{font-size:19px;margin:0 0 3px;line-height:1.5}.panel-title p{color:#8b999c;font-size:12px;margin:0}.required-note{font-size:11px;color:#a1abad;margin-top:4px}.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{margin-bottom:17px}.field label{display:block;font-size:12px;font-weight:800;margin-bottom:7px;color:#344e58}.optional{font-size:10px;color:#9ba9ad;font-weight:500;margin-left:4px}.asterisk{color:#bb675b}.field input,.field textarea{display:block;width:100%;background:#fcfdfd;border:1px solid #dce5e7;border-radius:8px;outline:none;transition:border .2s,box-shadow .2s;padding:11px 13px;font-size:13px;color:#183740}.field input{height:43px}.field textarea{resize:vertical;min-height:164px}.field input::placeholder,.field textarea::placeholder{color:#a1adb1}.field input:focus,.field textarea:focus{border-color:#31a69c;box-shadow:0 0 0 3px #dff4f0}.field-hint{display:flex;justify-content:space-between;color:#9aabad;font-size:11px;margin-top:7px}.input-error{font-size:12px;color:#b73535;margin:7px 0 0}.form-footer{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;border-top:1px solid #eef2f2;padding-top:19px;flex-wrap:wrap}.sample-actions{color:#94a3a8;font-size:11px}.text-button{background:none;border:0;color:#087c73;font-size:11px;font-weight:800;padding:3px}.text-button:hover{text-decoration:underline}.divider-dot{margin:0 3px}.submit-actions{display:flex;align-items:center;gap:10px}.clear-button{border:0;background:none;color:#7c8d92;font-size:12px;padding:11px 12px}.primary-button{border:1px solid var(--teal);border-radius:8px;background:var(--teal);color:white;font-size:12px;font-weight:800;padding:12px 18px;display:flex;align-items:center;gap:22px;transition:background .2s,transform .2s}.primary-button:hover{background:#006b66;transform:translateY(-1px)}.guide-panel{padding:30px 27px;background:#fdfefe}.guide-panel h3{margin-top:8px}.guide-intro{font-size:12px;color:#84959b;margin:3px 0 29px}.guide-item{display:flex;gap:13px;margin-bottom:22px}.guide-icon{border:1px solid #c8e9e2;color:#087e75;background:#eefaf6;font-size:10px;font-weight:800;width:33px;height:33px;flex-shrink:0;display:grid;place-items:center;border-radius:9px}.guide-item h4{font-size:13px;margin:0 0 3px}.guide-item p{font-size:11px;color:#88999e;line-height:1.75;margin:0}.guide-footnote{margin-top:24px;border-top:1px solid #ebf0f0;padding-top:21px;display:flex;gap:10px;font-size:11px;color:#74898e}.shield-icon{color:#09816f;font-weight:800}.results{margin-top:38px;scroll-margin-top:25px}.results-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:21px;gap:16px}.results-head h2{font-size:26px}.outline-button{background:white;color:#245b5c;border:1px solid #d8e5e5;border-radius:8px;padding:10px 14px;font-size:12px;font-weight:700}.outline-button:hover{border-color:#4d9991}.result-overview{display:grid;grid-template-columns:1fr 1.85fr;gap:0;background:white;border:1px solid #e1eaea;border-radius:15px;overflow:hidden;box-shadow:var(--shadow)}.score-block,.summary-block{padding:28px 30px}.score-block{border-right:1px solid #e8eeee}.overline{font-size:11px;letter-spacing:.5px;color:#748a8d;font-weight:700}.score-row{display:flex;align-items:baseline;gap:5px}.score-row strong{font-size:49px;line-height:1.3;letter-spacing:-2px}.score-total{font-size:14px;color:#9aabab}.score-track{height:7px;border-radius:20px;background:#e7eeee;overflow:hidden;margin:3px 0 10px}.score-bar{height:100%;background:#0c9487;width:0;transition:width .35s}.risk-label{font-size:12px;font-weight:800}.summary-block h3{margin:11px 0 6px;font-size:19px}.summary-block>p{font-size:13px;color:#63777d;line-height:1.8;margin:0}.summary-block .result-note{font-size:11px;color:#96a4a8;margin-top:10px}.evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}.evidence-card{background:white;padding:22px 21px;border:1px solid #e1eaea;border-radius:12px}.evidence-title{display:flex;align-items:center;gap:9px;border-bottom:1px solid #edf1f1;padding-bottom:14px}.evidence-symbol{display:grid;place-items:center;background:#eff7f6;color:#007b75;width:30px;height:30px;border-radius:8px;font-weight:800}.evidence-title h3{font-size:13px;margin:0}.count-pill{margin-left:auto;border-radius:100px;background:#f2f5f5;color:#72848b;font-size:10px;font-weight:700;padding:3px 8px}.evidence-card ul{list-style:none;padding:0;margin:12px 0 0}.evidence-card li{font-size:12px;line-height:1.75;color:#546970;padding:9px 0;border-bottom:1px solid #f1f4f4;overflow-wrap:anywhere}.evidence-card li:last-child{border-bottom:0}.evidence-card li strong{display:block;color:#29434c;font-size:12px;margin-bottom:2px}.evidence-card li.empty{color:#98a7aa}.recommendation{display:flex;align-items:flex-start;gap:13px;background:#eaf4f2;padding:17px 21px;border:1px solid #d6e9e5;border-radius:11px;margin-top:19px}.recommendation-icon{display:grid;place-items:center;width:22px;height:22px;flex-shrink:0;border:1.5px solid #087a72;color:#087a72;border-radius:50%;font-weight:800;font-size:13px}.recommendation strong{font-size:12px}.recommendation p{font-size:12px;color:#51756f;margin:4px 0 0}.how-section{padding:82px 0}.how-section h2{margin:12px 0 32px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:45px}.steps>div{padding-top:20px;border-top:1px solid #dce6e7}.steps span{color:#08877d;font-size:12px;font-weight:800}.steps h3{font-size:16px;margin:13px 0 8px}.steps p{font-size:12px;color:#809197;margin:0}.about-section{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;padding:42px 0 82px;border-top:1px solid #edf1f1}.about-section h2{font-size:25px}.about-section>p{font-size:13px;color:#71858a;line-height:2;margin:0}.footer{border-top:1px solid #e6eded;padding:24px 0}.footer-inner{display:flex;gap:20px;align-items:center;justify-content:space-between;font-size:11px;color:#9aa9ad}.footer-brand{font-size:15px;color:#20404b;font-weight:800}.toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:#173b43;color:white;padding:10px 18px;border-radius:9px;font-size:12px;transition:.2s;z-index:20;box-shadow:0 10px 30px #0002}.toast.show{opacity:1;transform:translate(-50%,0)}[hidden]{display:none!important}@media(max-width:960px){.workspace{grid-template-columns:1fr}.guide-panel{display:grid;grid-template-columns:repeat(3,1fr);column-gap:20px}.guide-panel .guide-eyebrow,.guide-panel>h3,.guide-panel .guide-intro,.guide-panel .guide-footnote{grid-column:1/-1}.guide-item{margin-bottom:6px}.hero{gap:20px}.topnav{margin-left:5px;gap:22px}.privacy-pill{display:none}}@media(max-width:680px){.shell{width:min(100% - 34px,1140px)}.topbar{height:70px}.topbar-inner{justify-content:space-between}.topnav{margin-left:auto;gap:13px;font-size:11px}.topnav a:last-child{display:none}.brand{font-size:19px}.brand-mark{width:32px;height:32px}.hero{display:block;padding-top:43px;padding-bottom:40px;min-height:0}.hero h1{font-size:37px}.hero-lead{font-size:13px}.hero-visual{display:none}.analysis-section{padding:45px 0 60px}.section-heading{align-items:flex-start}.section-heading h2{font-size:26px}.step-pill{display:none}.form-panel{padding:22px 18px}.field-pair{grid-template-columns:1fr;gap:0}.form-footer{align-items:stretch}.sample-actions{width:100%}.submit-actions{width:100%;justify-content:flex-end}.primary-button{flex:1;justify-content:space-between}.guide-panel{display:block;padding:24px 20px}.guide-item{margin-bottom:16px}.result-overview{grid-template-columns:1fr}.score-block{border-right:0;border-bottom:1px solid #e8eeee}.evidence-grid{grid-template-columns:1fr}.results-head{display:block}.results-head .outline-button{margin-top:15px}.how-section{padding:55px 0}.steps{grid-template-columns:1fr;gap:24px}.about-section{grid-template-columns:1fr;gap:8px;padding:36px 0 55px}.footer-inner{flex-wrap:wrap;gap:6px}.footer-inner span:nth-child(2){display:none}}
+
+
+/* V2: one clean input route, progressive disclosure for EML */
+[hidden]{display:none!important}
+.input-mode{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:-6px 0 24px;padding:12px 14px;border:1px solid #e5eeee;border-radius:10px;background:#f8fbfb}
+.mode-title{font-size:12px;font-weight:800;color:#596f74}
+.mode-options{display:flex;gap:6px;background:#eaf2f1;padding:4px;border-radius:9px}
+.mode-button{border:0;border-radius:7px;background:transparent;color:#60777b;font-weight:750;font-size:12px;padding:8px 12px}
+.mode-button.is-active{background:#fff;color:#087b75;box-shadow:0 2px 7px #143a4017}
+.eml-import{display:flex;gap:18px;padding:19px 20px;margin-bottom:21px;border:1px dashed #78b4ad;border-radius:12px;background:#f5fbf9}
+.import-icon{width:45px;height:45px;display:grid;place-items:center;background:#dff2eb;color:#087b75;font-weight:900;border-radius:11px;flex:none;font-size:23px}
+.import-copy{min-width:0;flex:1}.import-copy strong{font-size:14px}.import-copy p{margin:4px 0;font-size:12px;color:#71858a}
+.import-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px}.file-pick,.demo-pick{border-radius:8px;font-weight:800;font-size:12px;padding:9px 13px;cursor:pointer}.file-pick{background:#087b75;color:#fff}.demo-pick{background:#fff;color:#087b75;border:1px solid #cddfdd}.import-copy .import-status{margin-top:10px;font-size:11px;color:#607a7a}
+.import-summary{border:1px solid #d5e9e3;background:#f4faf7;border-radius:11px;padding:17px 20px;margin-bottom:20px}.import-summary-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px}.import-summary-top strong{color:#186a5f}.import-summary-top span{font-size:11px;color:#6c8587;overflow-wrap:anywhere}
+.auth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:13px 0}.auth-grid>div{border:1px solid #e1ece8;background:#fff;border-radius:8px;padding:9px 11px;display:flex;gap:8px;justify-content:space-between;align-items:center}.auth-grid span{color:#63787b;font-size:11px;font-weight:700}.auth-grid strong{color:#254c50;font-size:12px;text-transform:uppercase}
+.import-summary p{font-size:11px;color:#5b7377;margin:7px 0}.import-summary .auth-disclaimer{color:#8a7773}
+@media(max-width:620px){.input-mode{align-items:stretch}.mode-options{width:100%}.mode-button{flex:1}.eml-import{padding:15px;gap:10px}.auth-grid{grid-template-columns:1fr}.import-summary{padding:13px}}
+
+/* V3: progressive URL details, hidden until analysis */
+.url-lab{margin-top:20px;background:#fff;border:1px solid #e1eaea;border-radius:14px;padding:25px 26px}.url-lab-header{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.url-lab-header h3{margin:6px 0;font-size:19px}.url-lab-header p{margin:0;color:#71838b;font-size:12px}.url-count-text{white-space:nowrap;background:#eef8f5;color:#087b75;border-radius:40px;padding:6px 12px;font-size:11px;font-weight:800}.url-lab-items{display:grid;gap:12px;margin-top:18px}.url-lab-item{border:1px solid #e7efee;border-radius:10px;padding:17px;background:#fcfefe;min-width:0}.url-lab-top{display:flex;gap:12px;align-items:center;justify-content:space-between}.url-lab-index{font-size:11px;color:#7f9096;font-weight:800}.url-lab-chip{border-radius:6px;padding:4px 8px;font-size:11px;font-weight:800;background:#edf4f4;color:#46656c}.url-lab-chip.warn{background:#fff0e9;color:#b05433}.url-lab-host{font-weight:800;overflow-wrap:anywhere;margin:9px 0;font-size:15px;color:#183c43}.url-lab-detail{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.url-lab-detail>div{background:white;border:1px solid #e9eeee;padding:10px;border-radius:8px;min-width:0}.url-lab-detail small{display:block;color:#7c9195;font-size:10px}.url-lab-detail strong{display:block;font-size:12px;overflow-wrap:anywhere}.url-lab-flags{font-size:12px;color:#657b82;margin:8px 0 0;line-height:1.7}.url-lab-raw{font-size:11px;color:#819196;overflow-wrap:anywhere;margin:4px 0 0}.url-lab-notice{color:#a15636;font-weight:700}.url-disclaimer{color:#8a9b9f;font-size:11px;line-height:1.8;margin:14px 0 0}@media(max-width:640px){.url-lab{padding:18px}.url-lab-detail{grid-template-columns:1fr}.url-lab-header{flex-wrap:wrap}}
+
+/* V4: evaluation workspace */
+.eval-section{background:#f6f9f9;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:76px 0}
+.eval-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:25px}
+.eval-head h2{font-size:clamp(25px,3vw,36px);line-height:1.25;margin:9px 0}
+.eval-head p{margin:0;max-width:740px;color:var(--muted);font-size:14px}
+.eval-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.eval-controls label{font-size:13px;font-weight:700}.eval-controls select{padding:10px 15px;border:1px solid #ccdadd;border-radius:9px;background:#fff;color:var(--ink)}
+.eval-run{background:var(--teal);color:#fff;border:0;border-radius:9px;padding:11px 19px;font-weight:800}.eval-run:hover{background:var(--teal-dark)}
+.eval-note{font-size:12px;color:#647780;margin:12px 0 24px;max-width:890px}
+.eval-empty,.eval-dashboard{background:#fff;border:1px solid var(--line);border-radius:15px;padding:24px;box-shadow:var(--shadow)}
+.eval-empty{color:#65787c}.eval-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.eval-stat{border:1px solid #e7edee;background:#fbfcfc;border-radius:12px;padding:16px}.eval-stat small{display:block;color:#678087;font-size:12px}.eval-stat strong{display:block;font-size:30px;letter-spacing:-1px;margin-top:3px}.eval-stat em{font-style:normal;color:#78888b;font-size:11px}
+.eval-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);gap:20px;align-items:start}
+.eval-matrix{width:100%;border-collapse:separate;border-spacing:5px;font-size:13px;text-align:center}.eval-matrix td,.eval-matrix th{border-radius:9px;padding:12px 8px;background:#f3f7f7}.eval-matrix td strong{font-size:22px;display:block}.eval-matrix .tp{background:#e5f5ed}.eval-matrix .tn{background:#e5f5ed}.eval-matrix .fp,.eval-matrix .fn{background:#fff1e8}
+.eval-matrix caption{text-align:left;font-weight:800;font-size:16px;margin-bottom:10px}
+.eval-table{width:100%;border-collapse:collapse;font-size:12px}.eval-table th{text-align:left;color:#60777b;background:#f3f7f7}.eval-table td,.eval-table th{padding:9px 10px;border-bottom:1px solid #e6eced;vertical-align:middle}.eval-table tbody tr:hover{background:#f9fcfc}.eval-table-wrap{overflow:auto;max-height:385px;border:1px solid #e2eaec;border-radius:10px}.eval-table td button{border:1px solid #b8d5d0;background:#fff;color:#087b75;border-radius:7px;padding:5px 8px;white-space:nowrap}.eval-table td button:hover{background:#e9f7f4}
+.eval-warn{color:#a65d3a;font-weight:750}.eval-ok{color:#107663;font-weight:750}.eval-bottom{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:15px}.eval-caption{font-size:12px;color:#617880;margin:15px 0 0}
+@media(max-width:850px){.eval-inner{grid-template-columns:1fr}.eval-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.eval-section{padding:48px 0}.eval-dashboard{padding:14px}.eval-metrics{gap:7px}.eval-stat{padding:12px}.eval-stat strong{font-size:25px}.eval-controls{width:100%}.eval-run{flex:1}}
+</style>
+  
+</head>
+<body>
+  <a href="#main" class="skip-link">跳至主要內容</a>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="MailGuard 首頁"><span class="brand-mark" aria-hidden="true">✦</span><span>MailGuard<span class="brand-dot">.</span></span></a>
+      <nav class="topnav" aria-label="主要導覽"><a href="#analyzer" class="nav-active">郵件分析</a><a href="#evaluation">測試評估</a><a href="#how-it-works">使用方式</a><a href="#about">關於工具</a></nav>
+      <span class="privacy-pill"><span class="privacy-dot"></span>本機分析・不會上傳</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy"><span class="eyebrow"><span class="eyebrow-line"></span> EMAIL SECURITY, MADE SIMPLE</span><h1 id="hero-title">收到可疑郵件？<br/><span>先分析，再決定。</span></h1><p class="hero-lead">貼上郵件資訊，MailGuard 協助你檢查寄件者、可疑連結與社交工程訊號，並用容易理解的方式呈現風險證據。</p><a class="hero-link" href="#analyzer">開始檢查郵件 <span aria-hidden="true">↗</span></a></div>
+      <div class="hero-visual" aria-hidden="true"><div class="visual-glow"></div><div class="float-card"><div class="float-card-top"><span class="mini-icon">✉</span><span class="tiny-label">MAIL INSPECTION</span><span class="tiny-dots">•••</span></div><div class="fake-line width75"></div><div class="fake-line width55"></div><div class="fake-line width85"></div><div class="fake-line width40"></div><div class="float-divider"></div><div class="visual-status"><span class="visual-warning">!</span><span><strong>Inspect before you click</strong><small>Know what to look for</small></span><span class="visual-arrow">↗</span></div></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div></div>
+    </section>
+
+    <section class="analysis-section" id="analyzer" aria-labelledby="analyzer-title"><div class="shell analysis-shell"><div class="section-heading"><div><span class="section-kicker">01 / EMAIL ANALYZER</span><h2 id="analyzer-title">分析一封郵件</h2><p>貼上郵件文字，或匯入 .eml 原始郵件；系統會將可讀內容帶入分析欄位。</p></div><span class="step-pill">免登入 · 本機分析</span></div>
+      <div class="workspace">
+        <div class="form-panel"><div class="panel-title"><div><h3>郵件資訊</h3><p>貼上文字或匯入郵件，不需要登入。</p></div><span class="required-note">* 必填</span></div>
+          <div class="input-mode" aria-label="郵件輸入方式"><span class="mode-title">選擇輸入方式</span><div class="mode-options"><button type="button" class="mode-button is-active" id="manual-mode" aria-pressed="true">✎ 貼上郵件內容</button><button type="button" class="mode-button" id="eml-mode" aria-pressed="false">⇧ 匯入 .eml 檔案</button></div></div>
+          <div id="eml-import" class="eml-import" hidden><div class="import-icon" aria-hidden="true">⇧</div><div class="import-copy"><strong>匯入原始郵件檔案</strong><p>支援 .eml（最大 2 MB），在本機解析，不上傳至伺服器。</p><div class="import-actions"><label for="eml-file" class="file-pick">選擇 .eml 檔案</label><input type="file" id="eml-file" accept=".eml,message/rfc822" hidden><button type="button" id="eml-demo" class="demo-pick">試用 EML 範例</button></div><p class="import-status" id="eml-status" role="status">尚未選擇檔案</p></div></div>
+          <div id="import-summary" class="import-summary" hidden><div class="import-summary-top"><strong>✓ 原始郵件解析摘要</strong><span id="import-name"></span></div><div class="auth-grid"><div><span>SPF</span><strong id="auth-spf">—</strong></div><div><span>DKIM</span><strong id="auth-dkim">—</strong></div><div><span>DMARC</span><strong id="auth-dmarc">—</strong></div></div><p id="header-extra"></p><p class="auth-disclaimer">僅顯示郵件內 Authentication-Results 所記載的結果，不等於本工具完成驗證。</p></div>
+          <form id="analyze-form" novalidate>
+            <div class="field-pair"><div class="field"><label for="from">寄件者 <span class="optional">選填</span></label><input id="from" name="from" type="text" placeholder="例如：客服中心 <support@example.com>" autocomplete="off" /></div><div class="field"><label for="replyTo">回覆地址 <span class="optional">選填</span></label><input id="replyTo" name="replyTo" type="text" placeholder="例如：reply@example.com" autocomplete="off" /></div></div>
+            <div class="field"><label for="subject">郵件主旨 <span class="optional">選填</span></label><input id="subject" name="subject" type="text" placeholder="例如：請立即更新您的帳戶資訊" autocomplete="off" /></div>
+            <div class="field"><label for="body">郵件內容 <span class="asterisk">*</span></label><textarea id="body" name="body" rows="7" placeholder="將想檢查的電子郵件內容貼在這裡，包含網址也可以…" aria-describedby="body-help" required></textarea><div class="field-hint" id="body-help"><span>建議移除姓名、帳號等私人資訊</span><span id="char-count">0 字</span></div><p id="input-error" class="input-error" role="alert" hidden>請先輸入郵件內容，再開始分析。</p></div>
+            <div class="form-footer"><div class="sample-actions"><span>不知道輸入什麼？</span><button type="button" class="text-button" id="sample-phishing">載入可疑範例</button><span class="divider-dot">·</span><button type="button" class="text-button" id="sample-normal">一般郵件</button><span class="divider-dot">·</span><button type="button" class="text-button" id="sample-spoof">偽冒網址範例</button></div><div class="submit-actions"><button type="button" class="clear-button" id="clear-form">清除</button><button type="submit" class="primary-button" id="analyze-btn"><span>分析郵件風險</span><span aria-hidden="true">→</span></button></div></div>
+          </form>
+        </div>
+        <aside class="guide-panel"><div class="guide-eyebrow">WHAT WE CHECK</div><h3>我們會檢查什麼？</h3><p class="guide-intro">每一項風險都會附上原因，而不只給你一個分數。</p><div class="guide-item"><span class="guide-icon">01</span><div><h4>寄件者線索</h4><p>比對寄件與回覆地址，發現可能異常之處。</p></div></div><div class="guide-item"><span class="guide-icon">02</span><div><h4>連結特徵</h4><p>解析實際主機、子網域、常見偽冒特徵及特殊編碼。</p></div></div><div class="guide-item"><span class="guide-icon">03</span><div><h4>社交工程語句</h4><p>注意急迫要求、索取密碼與其他壓力話術。</p></div></div><div class="guide-footnote"><span class="shield-icon">✓</span><span>本版本僅在你的瀏覽器中處理文字，不會連上可疑網址。</span></div></aside>
+      </div>
+      <section id="results" class="results" aria-labelledby="results-heading" tabindex="-1" hidden><div class="results-head"><div><span class="section-kicker">02 / ANALYSIS REPORT</span><h2 id="results-heading">分析結果</h2><p>以下是規則式特徵檢查的結果，請搭配寄件背景與官方管道查證。</p></div><button type="button" id="copy-report" class="outline-button">複製報告摘要</button></div><div class="result-overview"><div class="score-block"><span class="overline">啟發式風險指標</span><div class="score-row"><strong id="score-num">—</strong><span class="score-total">/ 100</span></div><div class="score-track"><div id="score-bar" class="score-bar"></div></div><span id="score-label" class="risk-label">—</span></div><div class="summary-block"><span class="overline">分析重點</span><h3 id="summary-title">—</h3><p id="summary-desc"></p><p class="result-note">分數不是釣魚機率；低分不等於安全。此工具不會查詢網站信譽或驗證寄件者身分。</p></div></div><div class="evidence-grid"><div class="evidence-card"><div class="evidence-title"><span class="evidence-symbol">@</span><h3>寄件者</h3><span id="sender-count" class="count-pill">0 項</span></div><ul id="sender-list"></ul></div><div class="evidence-card"><div class="evidence-title"><span class="evidence-symbol">↗</span><h3>網址</h3><span id="url-count" class="count-pill">0 項</span></div><ul id="url-list"></ul></div><div class="evidence-card"><div class="evidence-title"><span class="evidence-symbol">≋</span><h3>郵件內容</h3><span id="content-count" class="count-pill">0 項</span></div><ul id="content-list"></ul></div></div><section class="url-lab" id="url-lab" hidden aria-labelledby="url-lab-heading"><div class="url-lab-header"><div><span class="section-kicker">URL INSPECTION</span><h3 id="url-lab-heading">網址主機辨識</h3><p>先確認網址實際連到哪個主機，再觀察可能的偽冒線索。以下網址均以純文字顯示，無法直接點擊。</p></div><span class="url-count-text" id="url-total">0 個網址</span></div><div class="url-lab-items" id="url-lab-items"></div><p class="url-disclaimer">僅使用本機字串與網址結構分析；不連線、不查詢信譽。註冊網域層級只對部分常見後綴提供近似輔助，不能取代完整 Public Suffix List。</p></section><div class="recommendation"><div class="recommendation-icon">i</div><div><strong>建議下一步</strong><p id="next-step"></p></div></div></section>
+    </div></section>
+
+
+<section class="eval-section" id="evaluation" aria-labelledby="evaluation-heading">
+ <div class="shell">
+  <div class="eval-head"><div><span class="section-kicker">03 / EVALUATION LAB</span><h2 id="evaluation-heading">偵測效能測試</h2><p>使用內建的 20 封合成測試郵件，重複執行與手動分析相同的規則，觀察誤報與漏報。結果可用於改進偵測規則及期末報告。</p></div></div>
+  <div class="eval-controls"><label for="eval-threshold">判定為「需留意」的分數門檻</label><select id="eval-threshold"><option value="25">25 分（較敏感）</option><option value="60">60 分（較保守）</option></select><button type="button" class="eval-run" id="eval-run">執行 20 封郵件測試 →</button></div>
+  <p class="eval-note">資料為人工撰寫的示範案例，不是外部真實郵件資料集；案例標籤僅用於教學評估。所顯示的 Precision／Recall／F1 不能代表系統在真實環境的偵測效能。門檻僅影響評估分類，不修改郵件分析的原始分數。</p>
+  <div id="eval-empty" class="eval-empty">按下「執行測試」，即可看到偵測指標、混淆矩陣與逐封測試結果。</div>
+  <div id="eval-dashboard" class="eval-dashboard" hidden aria-live="polite">
+   <div class="eval-metrics"><div class="eval-stat"><small>Precision 精確率</small><strong id="eval-precision">—</strong><em>判定可疑中真正可疑的比例</em></div><div class="eval-stat"><small>Recall 召回率</small><strong id="eval-recall">—</strong><em>可疑案例被找出的比例</em></div><div class="eval-stat"><small>F1-score</small><strong id="eval-f1">—</strong><em>精確率與召回率的調和平均</em></div><div class="eval-stat"><small>Accuracy 正確率</small><strong id="eval-accuracy">—</strong><em>所有案例中判定正確的比例</em></div></div>
+   <div class="eval-inner"><div><table class="eval-matrix" aria-label="混淆矩陣"><caption>混淆矩陣</caption><thead><tr><th scope="col">實際 / 預測</th><th scope="col">可疑</th><th scope="col">未達門檻</th></tr></thead><tbody><tr><th scope="row">可疑</th><td class="tp"><strong id="eval-tp">0</strong>TP</td><td class="fn"><strong id="eval-fn">0</strong>FN 漏報</td></tr><tr><th scope="row">一般</th><td class="fp"><strong id="eval-fp">0</strong>FP 誤報</td><td class="tn"><strong id="eval-tn">0</strong>TN</td></tr></tbody></table><p class="eval-caption" id="eval-summary"></p></div>
+   <div><h3 style="margin:0 0 11px;font-size:16px">逐封測試結果</h3><div class="eval-table-wrap"><table class="eval-table"><thead><tr><th>案例</th><th>標籤</th><th>分數</th><th>判定</th><th>檢視</th></tr></thead><tbody id="eval-rows"></tbody></table></div></div></div>
+   <div class="eval-bottom"><p class="eval-caption">可按「查看」將該封案例載入上方分析器，檢視逐條證據。</p><button type="button" id="eval-export" class="outline-button">下載 CSV 測試報告</button></div>
+  </div>
+ </div>
+</section>
+
+    <section class="how-section shell" id="how-it-works"><span class="section-kicker">HOW IT WORKS</span><h2>三個步驟，找出值得查證的線索。</h2><div class="steps"><div><span>01</span><h3>貼上郵件</h3><p>貼上主旨與內文，或匯入 .eml 原始郵件。</p></div><div><span>02</span><h3>檢查訊號</h3><p>在本機分析網址與常見社交工程線索。</p></div><div><span>03</span><h3>了解風險</h3><p>查看證據與建議，再透過官方管道查證。</p></div></div></section>
+    <section class="about-section shell" id="about"><div><span class="section-kicker">A NOTE ON TRUST</span><h2>提供線索，不代替你的判斷。</h2></div><p>MailGuard V5 是教學與初步檢查用途的規則式分析工具，不是郵件防毒、防詐保證或即時威脅情報服務。某些正常郵件也可能觸發規則，部分釣魚郵件則可能避開偵測。請勿點擊可疑連結，並獨立使用官方網站或客服查證。</p></section>
+  </main>
+  <footer class="footer"><div class="shell footer-inner"><span class="footer-brand">✦ MailGuard<span class="brand-dot">.</span></span><span>Designed for safer email decisions</span><span>V5 · Browser-only prototype</span></div></footer>
+  <div class="toast" role="status" aria-live="polite" id="toast"></div>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const form = $('analyze-form');
+const fields = {from:$('from'),replyTo:$('replyTo'),subject:$('subject'),body:$('body')};
+const samples = {
+  phishing: {from:'校園資訊服務中心 <notice@campus-service.example>',replyTo:'security-support@account-help.example',subject:'【重要】帳號將於 24 小時內停用',body:'您的校園帳號將在 24 小時內停用！請立即點擊 http://192.0.2.44/verify 並輸入帳號、密碼與驗證碼，以免服務中斷。'},
+  normal: {from:'課程助教 <ta@university.example>',replyTo:'ta@university.example',subject:'本週課程教室調整通知',body:'同學您好：本週課程改至資訊大樓 201 教室，請於上課前查看課程平台公告。謝謝。'},
+  spoof: {from:'資訊中心 <service@university.example>',replyTo:'support@university.example',subject:'帳戶安全驗證通知',body:'請立即至 https://login.university.example.account-check.example/verify 更新密碼。注意：網址中出現 university.example 字樣，不代表實際網域就屬於學校。'}
+};
+let currentReport = null;
+let toastTimeout;
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('show'),2500);}
+function updateCount(){ $('char-count').textContent=`${fields.body.value.length.toLocaleString('zh-TW')} 字`;}
+function resetReport(){currentReport=null;$('results').hidden=true;}
+function setSample(key){Object.entries(samples[key]).forEach(([k,v])=>fields[k].value=v);updateCount();$('input-error').hidden=true;resetReport();fields.body.focus();toast('已載入示範郵件，可直接開始分析');}
+$('sample-phishing').addEventListener('click',()=>setSample('phishing'));
+$('sample-normal').addEventListener('click',()=>setSample('normal'));
+$('sample-spoof').addEventListener('click',()=>setSample('spoof'));
+$('clear-form').addEventListener('click',()=>{form.reset();updateCount();resetReport();$('input-error').hidden=true;fields.body.focus();});
+fields.body.addEventListener('input',()=>{updateCount();$('input-error').hidden=true;});
+const add=(arr,title,detail,points)=>arr.push({title,detail,points});
+function getEmail(raw){let match=raw.match(/<([^<>\s]+@[^<>\s]+)>/);if(match)return match[1].toLowerCase();match=raw.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);return match?match[0].toLowerCase():'';}
+function getDomain(email){return email.includes('@')?email.split('@').pop():'';}
+
+// Intentionally conservative: approximation only, not a full Public Suffix List.
+const commonMultiPartSuffixes = new Set(['com.tw','org.tw','edu.tw','gov.tw','net.tw','co.uk','org.uk','ac.uk','com.au','net.au','co.jp','ne.jp','or.jp','co.kr','com.hk','com.sg','com.cn','com.br']);
+function approximateDomain(host){
+  const h=host.replace(/\.$/,'').toLowerCase();if(/^(?:\d{1,3}\.){3}\d{1,3}$/.test(h)||h.startsWith('['))return {domain:'不適用（IP 位址）',qualifier:'IP 位址不具一般註冊網域結構'};const labels=h.split('.');
+  if(labels.length<2)return {domain:h,qualifier:'單一標籤／非標準網域'};
+  const tail=labels.slice(-2).join('.');const parts=commonMultiPartSuffixes.has(tail)?3:2;
+  if(labels.length<parts)return {domain:h,qualifier:'可能為公共後綴，無法判定註冊網域'};
+  return {domain:labels.slice(-parts).join('.'),qualifier:'近似推定，非完整註冊網域驗證'};
+}
+function extractUrls(text){
+  return [...new Set((text.match(/(?:https?:\/\/|www\.)[^\s<>"'，。；;）)]+/gi)||[]).map(s=>s.replace(/[!?.，。；;）)]+$/,'')))];
+}
+function levenshteinAtMostTwo(a,b){
+  if(Math.abs(a.length-b.length)>2)return 3;
+  let prev=Array.from({length:b.length+1},(_,i)=>i);
+  for(let i=1;i<=a.length;i++){const curr=[i];for(let j=1;j<=b.length;j++){curr[j]=Math.min(curr[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));}prev=curr;}
+  return prev[b.length];
+}
+function inspectUrl(raw,senderDomain){
+  let parsed;try{parsed=new URL(/^www\./i.test(raw)?'https://'+raw:raw);}catch{return null;}
+  if(!['http:','https:'].includes(parsed.protocol))return null;
+  const host=parsed.hostname.toLowerCase().replace(/\.$/,'');const flags=[];let points=0;
+  const addFlag=(message,p)=>{flags.push(message);points+=p;};
+  const approx=approximateDomain(host),senderApprox=senderDomain?approximateDomain(senderDomain):null;
+  const isIp=/^(?:\d{1,3}\.){3}\d{1,3}$/.test(host)||host.startsWith('[');
+  if(parsed.protocol==='http:')addFlag('未加密 HTTP（不代表 HTTPS 網站一定安全）',12);
+  if(isIp)addFlag('網址使用 IP 位址而非一般網域名稱',18);
+  if(host.includes('xn--'))addFlag('含 Punycode（IDN），需核對實際顯示字元',12);
+  if(host.split('.').length>=5)addFlag('子網域層級較多',5);
+  if(parsed.username||parsed.password)addFlag('使用者資訊 @ 位於主機前，可能誤導閱讀者',18);
+  if(/%(?:2f|40|3a|2e|5c)/i.test(raw))addFlag('包含值得檢查的 URL 編碼字元',7);
+  if(senderDomain){
+    const sameOrSub=host===senderDomain||host.endsWith('.'+senderDomain);
+    if(!sameOrSub){
+      addFlag('連結主機與寄件者網域不同（可能合法，應查證）',5);
+      if(host.includes(senderDomain))addFlag('寄件者網域文字出現在別的網址主機內，可能造成偽冒錯覺',23);
+      const sBase=senderApprox.domain.split('.')[0],uBase=approx.domain.split('.')[0];
+      if(sBase.length>=5&&uBase.length>=5&&sBase!==uBase&&levenshteinAtMostTwo(sBase,uBase)<=2&&senderApprox.domain!==approx.domain){addFlag('主機與寄件網域的名稱相似，可能是拼字偽冒；須人工確認',17);}
+    }
+  }
+  return {raw,host,domain:approx.domain,qualifier:approx.qualifier,flags,points};
+}
+function renderUrlLab(items){
+  const lab=$('url-lab'),root=$('url-lab-items');root.replaceChildren();lab.hidden=items.length===0;
+  $('url-total').textContent=`${items.length} 個網址`;
+  items.forEach((it,i)=>{
+    const card=document.createElement('article');card.className='url-lab-item';
+    const top=document.createElement('div');top.className='url-lab-top';
+    const ix=document.createElement('span');ix.className='url-lab-index';ix.textContent=`URL ${String(i+1).padStart(2,'0')}`;
+    const chip=document.createElement('span');chip.className='url-lab-chip'+(it.flags.length?' warn':'');chip.textContent=it.flags.length?`${it.flags.length} 項待查證`:'未觸發規則';top.append(ix,chip);
+    const host=document.createElement('p');host.className='url-lab-host';host.textContent=it.host;
+    const details=document.createElement('div');details.className='url-lab-detail';
+    for(const [key,val] of [['實際主機 Host',it.host],['近似註冊網域',it.domain]]){const cell=document.createElement('div'),label=document.createElement('small'),value=document.createElement('strong');label.textContent=key;value.textContent=val;cell.append(label,value);details.append(cell);}
+    const raw=document.createElement('p');raw.className='url-lab-raw';raw.textContent='原始連結（純文字）：'+it.raw;
+    const flags=document.createElement('p');flags.className='url-lab-flags';flags.textContent=it.flags.length?it.flags.join('；'):'未發現目前規則可辨識的風險訊號，仍無法保證安全。';
+    const note=document.createElement('p');note.className='url-lab-raw';note.textContent=it.qualifier;
+    card.append(top,host,details,flags,raw,note);root.append(card);
+  });
+}
+
+function analyze(){const from=fields.from.value.trim(),replyTo=fields.replyTo.value.trim(),subject=fields.subject.value.trim(),body=fields.body.value.trim();const all=subject+'\n'+body;const sender=[],url=[],content=[];
+  const fromEmail=getEmail(from),replyEmail=getEmail(replyTo);
+  if(from&& !fromEmail)add(sender,'寄件者格式需確認','無法從輸入內容辨識出標準電子郵件地址。',8);
+  if(replyTo&&!replyEmail)add(sender,'回覆地址格式需確認','無法辨識 Reply-To 電子郵件地址。',8);
+  if(fromEmail&&replyEmail&&getDomain(fromEmail)!==getDomain(replyEmail))add(sender,'寄件與回覆網域不同',`From：${getDomain(fromEmail)}；Reply-To：${getDomain(replyEmail)}。網域不同不一定是惡意，建議查證。`,16);
+  const urls = extractUrls(all);
+  const inspectedUrls = [];
+  for(const raw of urls.slice(0,12)){
+    const item = inspectUrl(raw, fromEmail ? getDomain(fromEmail) : '');
+    if (!item) continue;
+    inspectedUrls.push(item);
+    if (item.flags.length) add(url, `網址：${item.host}`, item.flags.join('；')+'。', Math.min(item.points,34));
+  }
+  if(urls.length>12)add(url,'網址數量較多','僅分析前 12 個網址。',0);
+  if(urls.length&&!url.length)add(url,'網址未觸發目前的可疑規則',`共擷取 ${urls.length} 個連結；沒有查詢網站信譽。`,0);
+  const rules=[[/密碼|password|passcode/i,'要求提供密碼','若郵件引導輸入密碼，請自行透過官方網站查證。',23],[/驗證碼|一次性密碼|otp|one.time.password/i,'涉及驗證碼','切勿將一次性驗證碼提供給陌生網站或他人。',25],[/立即|馬上|立刻|緊急|urgent|immediately/i,'使用急迫語氣','要求立即行動可能是施壓手法，也可能是一般通知。',12],[/停用|凍結|鎖定|封鎖|suspend|disabled/i,'帳戶中斷或停權威脅','以服務中斷促使快速操作，建議獨立查證。',13],[/24小時|12小時|一小時|限時|倒數/i,'時間限制或倒數','限時訊息可能促使使用者跳過正常查證。',9],[/匯款|轉帳|付款|信用卡|bank account|wire transfer/i,'涉及金錢或付款','付款或金融資料要求應透過可信通道核對。',14]];
+  for(const [regex,title,detail,pts] of rules)if(regex.test(all))add(content,title,detail,pts);
+  const senderScore=Math.min(25,sender.reduce((s,x)=>s+x.points,0));const urlScore=Math.min(38,url.reduce((s,x)=>s+x.points,0));const contentScore=Math.min(52,content.reduce((s,x)=>s+x.points,0));const score=Math.min(100,senderScore+urlScore+contentScore);
+  let level,heading,description,next;
+  if(score>=60){level='較高風險';heading='發現多個需要查證的警訊';description='這封郵件同時呈現多種可疑訊號。請先停止點擊郵件內連結或提供敏感資訊。';next='請自行輸入官方網站網址或使用已知客服電話查證；不要直接使用郵件中的登入連結。';}
+  else if(score>=25){level='需要留意';heading='部分訊號值得進一步核對';description='偵測到可能與釣魚手法相關的特徵，但不能單憑這些線索確認郵件真偽。';next='核對寄件者與事件背景，透過官方網站或既有聯絡方式確認。';}
+  else{level='未發現明顯高風險訊號';heading='目前規則沒有找到明顯警訊';description='此結果僅代表符合的風險規則較少，不能證明寄件者或連結安全。';next='若郵件涉及登入、金流或個資，仍請透過官方管道自行查證。';}
+  return{score,level,heading,description,next,sender,url,content,urlsChecked:urls.length,inspectedUrls,generatedAt:new Date().toLocaleString('zh-TW')};
+}
+function renderList(id,arr,emptyText){const ul=$(id);ul.replaceChildren();if(!arr.length){const li=document.createElement('li');li.className='empty';li.textContent=emptyText;ul.append(li);return;}for(const item of arr){const li=document.createElement('li');const strong=document.createElement('strong');strong.textContent=item.title;li.append(strong,document.createTextNode(item.detail));ul.append(li);}}
+function showReport(r){$('results').hidden=false;$('score-num').textContent=r.score;$('score-label').textContent=r.level;$('summary-title').textContent=r.heading;$('summary-desc').textContent=r.description;$('next-step').textContent=r.next;$('score-bar').style.width=r.score+'%';$('score-bar').style.background=r.score>=60?'#cb6a4c':r.score>=25?'#d8a247':'#09877c';$('score-label').style.color=r.score>=60?'#ba563c':r.score>=25?'#9d761a':'#087c75';for(const [key,id] of [['sender','sender'],['url','url'],['content','content']]){$(id+'-count').textContent=r[key].filter(x=>x.points>0).length+' 項';}renderList('sender-list',r.sender,'沒有發現此版本規則可辨識的寄件者異常；未驗證寄件者身分。');renderList('url-list',r.url,r.urlsChecked?'未發現此版本規則可辨識的網址特徵。':'未發現可解析的 HTTP(S) 網址。');renderList('content-list',r.content,'未發現此版本規則可辨識的社交工程語句。');renderUrlLab(r.inspectedUrls||[]);$('results').scrollIntoView({behavior:'smooth',block:'start'});}
+form.addEventListener('submit',e=>{e.preventDefault();if(!fields.body.value.trim()){$('input-error').hidden=false;fields.body.focus();return;}$('input-error').hidden=true;currentReport=analyze();showReport(currentReport);});
+$('copy-report').addEventListener('click',async()=>{if(!currentReport)return;const r=currentReport;const lines=[`MailGuard 郵件分析報告 (${r.generatedAt})`,`風險指標：${r.score}/100 (${r.level})`,`摘要：${r.description}`, ...[['寄件者',r.sender],['網址',r.url],['內容',r.content]].flatMap(([k,items])=>[`${k}：`,...(items.length?items.map(x=>`- ${x.title}：${x.detail}`):['- 未觸發規則'])]),`建議：${r.next}`,...((r.inspectedUrls||[]).map(x=>`URL 主機：${x.host}；近似網域：${x.domain}；線索：${x.flags.join('、')||'未觸發規則'}`)),'提醒：分數不是釣魚機率，低分不等於安全。'];const text=lines.join('\n');try{await navigator.clipboard.writeText(text);toast('已複製報告摘要');}catch{const area=document.createElement('textarea');area.value=text;document.body.append(area);area.select();try{document.execCommand('copy');toast('已複製報告摘要');}catch{toast('無法複製，請使用支援剪貼簿的瀏覽器');}area.remove();}});
+
+// ----- Local .eml import (best-effort MIME parsing) -----
+/* MailGuard B v2 - offline EML parser. Best-effort RFC 5322/MIME subset; no network. */
+'use strict';
+const MAILGUARD_EML_MAX_BYTES = 2 * 1024 * 1024;
+function splitMail(raw) {
+  const matched = /\r?\n\r?\n/.exec(raw);
+  if (!matched) return {headerText:raw, body:''};
+  return {headerText:raw.slice(0, matched.index), body:raw.slice(matched.index + matched[0].length)};
+}
+function parseHeaders(raw) {
+  const headers = {};
+  const unfolded = raw.replace(/\r?\n[ \t]+/g, ' ');
+  for (const line of unfolded.split(/\r?\n/)) {
+    const match = /^([\w-]+):[ \t]*(.*)$/.exec(line);
+    if (!match) continue;
+    const k = match[1].toLowerCase();
+    if (!headers[k]) headers[k] = [];
+    headers[k].push(match[2].trim());
+  }
+  return headers;
+}
+function firstHeader(headers, name) {return (headers[name] || [])[0] || '';}
+function bytesToText(bytes, charset='utf-8') {
+  try {return new TextDecoder(charset, {fatal:false}).decode(bytes);}
+  catch {return new TextDecoder('utf-8',{fatal:false}).decode(bytes);}
+}
+function fromBase64(s) {
+  try {const b=atob(s.replace(/[\r\n\t ]/g,'')); return Uint8Array.from(b,c=>c.charCodeAt(0));}
+  catch {return new Uint8Array();}
+}
+function decodeQuotedPrintable(s) {
+  const joined=s.replace(/=\r?\n/g,'');
+  const bytes=[];
+  for (let i=0;i<joined.length;i++) {
+    if(joined[i]==='=' && /^[0-9a-f]{2}$/i.test(joined.slice(i+1,i+3))){bytes.push(parseInt(joined.slice(i+1,i+3),16));i+=2;}
+    else {const cp=joined.codePointAt(i);if(cp>127){const more=new TextEncoder().encode(String.fromCodePoint(cp));bytes.push(...more);if(cp>65535)i++;}else bytes.push(cp);}
+  }
+  return new Uint8Array(bytes);
+}
+function decodeMimeWord(s){
+  return s.replace(/=\?([^?]+)\?([bq])\?([^?]*)\?=/gi,(_,charset,method,val)=>{
+    const bytes=method.toLowerCase()==='b'?fromBase64(val):decodeQuotedPrintable(val.replace(/_/g,' '));
+    return bytesToText(bytes,charset);
+  }).replace(/(\?=)\s+(=\?)/g,'$1$2');
+}
+function mimeParam(value,name) {
+  const m=RegExp('(?:^|;)\\s*'+name+'\\s*=\\s*(?:"([^"]*)"|([^;\\s]+))','i').exec(value||'');
+  return m?(m[1]??m[2]):'';
+}
+function decodePartBody(raw,headers){
+  const transfer=firstHeader(headers,'content-transfer-encoding').toLowerCase();
+  const charset=mimeParam(firstHeader(headers,'content-type'),'charset')||'utf-8';
+  if(transfer==='base64')return bytesToText(fromBase64(raw),charset);
+  if(transfer==='quoted-printable')return bytesToText(decodeQuotedPrintable(raw),charset);
+  return raw;
+}
+function stripHtml(html){
+  // Never attach to DOM or run HTML. Extract href text (not visit), then remove markup.
+  const links=[...html.matchAll(/\bhref\s*=\s*["'](https?:\/\/[^"']+)["']/gi)].map(x=>x[1]);
+  const without=html.replace(/<!--[\s\S]*?-->/g,' ').replace(/<(script|style|iframe|object|svg)\b[^>]*>[\s\S]*?<\/\1>/gi,' ')
+    .replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|amp|lt|gt|quot|#39);/g,x=>({'&nbsp;':' ','&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"}[x]||x));
+  return (without+'\n'+links.join('\n')).replace(/[ \t]{3,}/g,' ').trim();
+}
+function collectParts(raw,headers,depth=0){
+  if(depth>5)return {texts:[],attachments:0,warnings:['郵件 MIME 巢狀層數過深，部分內容未分析。']};
+  const type=firstHeader(headers,'content-type')||'text/plain';
+  const disposition=firstHeader(headers,'content-disposition');
+  const boundary=mimeParam(type,'boundary');
+  if(type.toLowerCase().startsWith('multipart/')&&boundary){
+    const delimiter='--'+boundary;
+    const chunks=raw.split(/\r?\n/);
+    const parts=[];let active=false,current=[];
+    for(const line of chunks){
+      if(line===delimiter||line===delimiter+'--'){
+        if(active&&current.length)parts.push(current.join('\n'));
+        current=[];active=line!==delimiter+'--';
+      }else if(active)current.push(line);
+    }
+    const merged={texts:[],attachments:0,warnings:[]};
+    for(const part of parts.slice(0,50)){
+      const split=splitMail(part);const sub=collectParts(split.body,parseHeaders(split.headerText),depth+1);
+      merged.texts.push(...sub.texts);merged.attachments+=sub.attachments;merged.warnings.push(...sub.warnings);
+    }
+    if(parts.length>50)merged.warnings.push('超過 50 個 MIME 區塊，只分析前 50 個。');
+    return merged;
+  }
+  if(/attachment/i.test(disposition)||mimeParam(disposition,'filename')||mimeParam(type,'name'))return {texts:[],attachments:1,warnings:[]};
+  const typeLower=type.toLowerCase();
+  if(typeLower.startsWith('text/plain')||typeLower.startsWith('text/html')) {
+    const t=decodePartBody(raw,headers);
+    return {texts:[{type:typeLower.startsWith('text/plain')?'plain':'html',text:typeLower.startsWith('text/html')?stripHtml(t):t}],attachments:0,warnings:[]};
+  }
+  return {texts:[],attachments:0,warnings:[]};
+}
+function inspectHeaders(headers){
+  const authValues=headers['authentication-results']||[];
+  const authText=authValues.join(' ; ');
+  const auth={};
+  for(const kind of ['spf','dkim','dmarc']){
+    const m=RegExp('(?:^|[;\\s])'+kind+'\\s*=\\s*(pass|fail|softfail|neutral|none|temperror|permerror)','i').exec(authText);
+    auth[kind]=m?m[1].toLowerCase():'未提供';
+  }
+  const from=firstHeader(headers,'from'); const replyTo=firstHeader(headers,'reply-to');
+  const returnPath=firstHeader(headers,'return-path');
+  const findings=[];
+  if(returnPath){
+    const fromDomain=(from.match(/@([a-z0-9.-]+)/i)||[])[1]?.toLowerCase()||'';
+    const rpDomain=(returnPath.match(/@([a-z0-9.-]+)/i)||[])[1]?.toLowerCase()||'';
+    if(fromDomain&&rpDomain&&fromDomain!==rpDomain)findings.push('From 與 Return-Path 網域不同（可能是正常代寄，需視情境查證）。');
+  }
+  for(const kind of ['spf','dkim','dmarc'])if(['fail','softfail','permerror'].includes(auth[kind]))findings.push(`標頭宣稱 ${kind.toUpperCase()}=${auth[kind]}；需確認 Authentication-Results 來源可信。`);
+  if(!authValues.length)findings.push('未提供 Authentication-Results，無法得知接收系統的驗證紀錄。');
+  return {from,replyTo,returnPath,date:firstHeader(headers,'date'),messageId:firstHeader(headers,'message-id'),receivedCount:(headers.received||[]).length,authenticationResults:auth,authenticationResultsRaw:authValues.slice(0,3),findings};
+}
+function parseEml(raw){
+  const split=splitMail(raw),headers=parseHeaders(split.headerText);
+  if(!Object.keys(headers).length)throw Error('找不到有效的郵件標頭，請確認檔案是原始 .eml 格式。');
+  const parts=collectParts(split.body,headers);
+  const plain=parts.texts.filter(p=>p.type==='plain').map(p=>p.text).join('\n\n');
+  const html=parts.texts.filter(p=>p.type==='html').map(p=>p.text).join('\n\n');
+  const headerAnalysis=inspectHeaders(headers);
+  return {fields:{sender:decodeMimeWord(firstHeader(headers,'from')),replyTo:decodeMimeWord(firstHeader(headers,'reply-to')),subject:decodeMimeWord(firstHeader(headers,'subject')),body:(plain||html).slice(0,120000)},headerAnalysis:{...headerAnalysis,attachments:parts.attachments,warnings:parts.warnings,usedHtml:!plain&&Boolean(html)},headerCount:Object.keys(headers).length};
+}
+
+let importedHeader = null;
+const emlImport = $('eml-import');
+const importSummary = $('import-summary');
+function setInputMode(kind){
+  const isEml=kind==='eml';
+  emlImport.hidden=!isEml;
+  $('manual-mode').classList.toggle('is-active',!isEml);
+  $('eml-mode').classList.toggle('is-active',isEml);
+  $('manual-mode').setAttribute('aria-pressed',String(!isEml));
+  $('eml-mode').setAttribute('aria-pressed',String(isEml));
+}
+function clearImported(){importedHeader=null;importSummary.hidden=true;$('eml-status').textContent='尚未選擇檔案';$('eml-file').value='';}
+function loadImported(parsed,name){
+  importedHeader=parsed.headerAnalysis;
+  fields.from.value=parsed.fields.sender;
+  fields.replyTo.value=parsed.fields.replyTo;
+  fields.subject.value=parsed.fields.subject;
+  fields.body.value=parsed.fields.body;
+  updateCount();resetReport();$('input-error').hidden=true;
+  const h=parsed.headerAnalysis;
+  $('import-name').textContent=name;
+  for(const k of ['spf','dkim','dmarc'])$('auth-'+k).textContent=h.authenticationResults[k];
+  $('header-extra').textContent=`Received 標頭：${h.receivedCount} 個 · 附件區塊：${h.attachments} 個（不掃描附件）` + (h.warnings.length?' · '+h.warnings.join('；'):'');
+  $('eml-status').textContent='已成功匯入，請檢查自動填入的欄位，再開始分析。';
+  importSummary.hidden=false;
+  toast('已解析郵件，請確認下方內容');
+}
+const DEMO_EML=`From: "Support Center" <support@notice.example>
+Reply-To: help@service-check.example
+Return-Path: <bounce@mailer.example>
+Subject: Please verify your account now
+Date: Wed, 18 Nov 2026 09:00:00 +0800
+Received: from mailer.example by gateway.example; Wed, 18 Nov 2026 09:00:00 +0800
+Authentication-Results: gateway.example; spf=fail smtp.mailfrom=mailer.example; dkim=none; dmarc=fail header.from=notice.example
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+您的帳戶將於 24 小時內停用，請立即到 http://verify-login.example/confirm 輸入密碼及驗證碼。`;
+$('manual-mode').addEventListener('click',()=>setInputMode('manual'));
+$('eml-mode').addEventListener('click',()=>setInputMode('eml'));
+$('eml-demo').addEventListener('click',()=>{try{loadImported(parseEml(DEMO_EML),'內建 EML 示範案例');}catch(e){$('eml-status').textContent='無法載入：'+e.message;}});
+$('eml-file').addEventListener('change',async e=>{
+  const f=e.target.files?.[0];if(!f)return;
+  if(!/\.eml$/i.test(f.name)){$('eml-status').textContent='請選擇 .eml 郵件檔案。';return;}
+  if(f.size>MAILGUARD_EML_MAX_BYTES){$('eml-status').textContent='檔案超過 2 MB，請改用較小的郵件檔。';return;}
+  try {const raw=await f.text();loadImported(parseEml(raw),f.name);}
+  catch(err){clearImported();$('eml-status').textContent='解析失敗：'+err.message;}
+});
+// The user may edit imported fields; show that import metadata is only historical.
+for(const f of Object.values(fields))f.addEventListener('input',()=>{if(importedHeader){$('header-extra').textContent='郵件欄位已手動編輯；標頭資訊仍來自前次匯入的檔案。';}});
+// Keep the header summary alongside the existing risk evidence; no authentication re-check.
+$('sample-phishing').addEventListener('click',clearImported);
+$('sample-normal').addEventListener('click',clearImported);
+$('clear-form').addEventListener('click',clearImported);
+
+
+// ----- V4: synthetic benchmark that reuses the production analyzer -----
+const evaluationCases = [
+ {id:'P01',label:1,title:'緊急帳戶停權',from:'安全中心 <notice@campus.example>',replyTo:'help@recover-access.example',subject:'緊急：帳戶將在24小時後停用',body:'請立即到 http://192.0.2.15/verify 輸入密碼與驗證碼。'},
+ {id:'P02',label:1,title:'獎品中獎通知',from:'禮品中心 <gift@reward.example>',replyTo:'claim@payout.example',subject:'您已獲得抽獎獎品',body:'要領取獎品請立即付款手續費，前往 http://claim-reward.example/receive。'},
+ {id:'P03',label:1,title:'偽冒校園登入網址',from:'資訊中心 <service@university.example>',replyTo:'service@university.example',subject:'請更新登入資料',body:'請前往 https://login.university.example.account-check.example/verify 更新密碼。'},
+ {id:'P04',label:1,title:'假冒金融客服',from:'金融客服 <notice@bank.example>',replyTo:'security@bank-review.example',subject:'您的帳戶已凍結',body:'請立即從 http://account-fix.example 登入並提供驗證碼。'},
+ {id:'P05',label:1,title:'付款指示變更',from:'供應商 <billing@supplier.example>',replyTo:'finance@updates.example',subject:'請變更匯款帳戶',body:'本月匯款請使用新的銀行帳戶；請盡速付款。'},
+ {id:'P06',label:1,title:'限時網頁驗證',from:'系統通知 <notify@portal.example>',replyTo:'reply@portal.example',subject:'您的登入期限即將截止',body:'限時 12 小時內完成驗證，輸入密碼：https://security-portal.example.com@account-help.example/login'},
+ {id:'P07',label:1,title:'看似正常的釣魚邀請',from:'活動服務 <event@event.example>',replyTo:'event@event.example',subject:'活動報名確認',body:'感謝報名，請至 https://event-check.example/rsvp 完成您的出席資料。'},
+ {id:'P08',label:1,title:'冒用網站拼字',from:'服務團隊 <support@mycompany.example>',replyTo:'support@mycompany.example',subject:'服務帳號更新',body:'請至 https://mycompanny.example/account 確認您的帳號。'},
+ {id:'P09',label:1,title:'冒名人資通知',from:'人資處 <hr@company.example>',replyTo:'hr@company.example',subject:'人事資料更新',body:'請於下週一前至 https://hr-system-update.example 提交新的個人資訊。'},
+ {id:'P10',label:1,title:'帳戶已遭封鎖',from:'服務中心 <alerts@service.example>',replyTo:'alert@customer-help.example',subject:'帳戶被鎖定',body:'系統偵測異常，請立即登入 https://service-check.example 確認。'},
+ {id:'N01',label:0,title:'課程教室調整',from:'助教 <ta@university.example>',replyTo:'ta@university.example',subject:'本週課程教室調整',body:'各位同學，本週改在 301 教室上課，請留意課程平台公告。'},
+ {id:'N02',label:0,title:'圖書館借閱提醒',from:'圖書館 <library@university.example>',replyTo:'library@university.example',subject:'借閱到期通知',body:'您借閱的書籍將於下週到期，請至館藏系統查詢，謝謝。'},
+ {id:'N03',label:0,title:'一般研討會邀請',from:'主辦單位 <team@conference.example>',replyTo:'team@conference.example',subject:'研討會議程通知',body:'會議議程已公布，報到時間為上午九點，歡迎參加。'},
+ {id:'N04',label:0,title:'同事工作協調',from:'同事 <colleague@work.example>',replyTo:'colleague@work.example',subject:'明天的會議安排',body:'明天下午兩點討論專案進度，請先整理已完成項目。'},
+ {id:'N05',label:0,title:'正式重設密碼通知',from:'服務台 <support@company.example>',replyTo:'support@company.example',subject:'密碼重設通知',body:'您先前申請重設密碼。如非本人操作，請由已知的官方網站進行查證；本通知不要求回覆密碼。'},
+ {id:'N06',label:0,title:'財務部付款確認',from:'會計 <finance@company.example>',replyTo:'finance@company.example',subject:'付款資料已收到',body:'本月付款資料已收到並登錄，款項依既有流程處理，謝謝。'},
+ {id:'N07',label:0,title:'網站維護公告',from:'資訊組 <it@company.example>',replyTo:'it@company.example',subject:'系統維護公告',body:'下週六將進行系統維護，維護期間部分功能暫時無法使用。'},
+ {id:'N08',label:0,title:'活動網站資訊',from:'活動組 <events@university.example>',replyTo:'events@university.example',subject:'迎新活動資訊',body:'活動細節可至 https://events.university.example/info 查閱。'},
+ {id:'N09',label:0,title:'一般緊急停課公告',from:'課務組 <courses@university.example>',replyTo:'courses@university.example',subject:'緊急停課通知',body:'因颱風關係明日停課，請留意學校公告與後續補課資訊。'},
+ {id:'N10',label:0,title:'正常網址中的登入文字',from:'課程組 <office@university.example>',replyTo:'office@university.example',subject:'課務平台使用指南',body:'使用教學請參閱 https://help.university.example/login-guide ，這是說明文件。'}
+];
+let evaluationResults=[];
+const percentMetric = v => (v*100).toFixed(1)+'%';
+function assessCase(item){
+ const snapshot=Object.fromEntries(Object.entries(fields).map(([name,el])=>[name,el.value]));
+ try{
+  for(const key of ['from','replyTo','subject','body']) fields[key].value=item[key]||'';
+  return analyze().score;
+ }finally{
+  for(const [name,value] of Object.entries(snapshot)) fields[name].value=value;
+ }
+}
+function runEvaluation(){
+ const threshold=Number($('eval-threshold').value);
+ evaluationResults=evaluationCases.map(item=>({...item,score:assessCase(item)})).map(item=>({...item,predicted:Number(item.score>=threshold)}));
+ let tp=0,tn=0,fp=0,fn=0;
+ for(const item of evaluationResults){if(item.label&&item.predicted)tp++;else if(item.label&&!item.predicted)fn++;else if(!item.label&&item.predicted)fp++;else tn++;}
+ const precision=tp+fp?tp/(tp+fp):0, recall=tp+fn?tp/(tp+fn):0, f1=precision+recall?2*precision*recall/(precision+recall):0,accuracy=(tp+tn)/evaluationResults.length;
+ for(const [k,v] of Object.entries({precision,recall,f1,accuracy})) $('eval-'+k).textContent=percentMetric(v);
+ for(const [k,v] of Object.entries({tp,tn,fp,fn}))$('eval-'+k).textContent=v;
+ $('eval-summary').textContent=`測試共 ${evaluationResults.length} 封（可疑 10 封、一般 10 封）；門檻 ${threshold} 分。誤報 ${fp} 封、漏報 ${fn} 封。`;
+ const tbody=$('eval-rows');tbody.replaceChildren();
+ for(const item of evaluationResults){
+  const tr=document.createElement('tr');
+  for(const val of [item.id+' · '+item.title,item.label?'可疑':'一般',String(item.score),item.predicted?'可疑':'未達門檻']){const td=document.createElement('td');td.textContent=val;tr.append(td);}
+  const match=item.label===item.predicted;tr.cells[3].className=match?'eval-ok':'eval-warn';
+  const last=document.createElement('td'),btn=document.createElement('button');btn.type='button';btn.textContent='查看';btn.addEventListener('click',()=>{clearImported();setInputMode('manual');setSampleFromEvaluation(item);document.querySelector('#analyzer').scrollIntoView({behavior:'smooth'});});last.append(btn);tr.append(last);tbody.append(tr);
+ }
+ $('eval-empty').hidden=true;$('eval-dashboard').hidden=false;
+}
+function setSampleFromEvaluation(item){for(const key of ['from','replyTo','subject','body'])fields[key].value=item[key]||'';updateCount();resetReport();$('input-error').hidden=true;toast('已載入 '+item.id+'，可檢視分析證據');}
+$('eval-run').addEventListener('click',runEvaluation);
+$('eval-threshold').addEventListener('change',()=>{if(evaluationResults.length)runEvaluation();});
+$('eval-export').addEventListener('click',()=>{
+ if(!evaluationResults.length)return;
+ const csvCell=v=>'"'+String(v).replace(/"/g,'""')+'"';
+ const rows=[['案例編號','案例名稱','預期標籤(1=可疑)','風險分數','預測標籤(1=可疑)','門檻'],...evaluationResults.map(x=>[x.id,x.title,x.label,x.score,x.predicted,$('eval-threshold').value])];
+ const csv='\uFEFF'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
+ const href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=href;a.download='mailguard-v4-evaluation.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),1000);
+});
+
+updateCount();
+
+</script>
+</body>
+</html>
